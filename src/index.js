@@ -14,27 +14,41 @@ const viewFood = () => {
 };
 window.onload = viewFood;
 
-const snakeX = document.querySelector("#snake").style.gridColumn.value;
-const snakeY = document.querySelector("#snake").style.gridRow.value;
+const snakeElement = document.querySelector("#snake")
+const snakeComputedStyle = getComputedStyle(snakeElement)
 
-const snakePosition = {
-  x: snakeX,
-  y: snakeY,
+let snakeY = snakeComputedStyle.gridRow;
+let snakeX = snakeComputedStyle.gridColumn
+
+let snakePosition = {
+  x: {
+    left: parseInt(snakeX.split('/')[0]),
+    right: parseInt(snakeX.split('/')[1])
+},
+  y: {
+    up: parseInt(snakeY.split('/')[0]),
+    down: parseInt(snakeY.split('/')[1])
+  },
 };
-console.log(snakePosition);
-// window.addEventListener("keydown", (event) => {
-//     switch (event.key) {
-//         case "ArrowUp":
-//             direction = "up";
-//             break;
-//         case "ArrowDown":
-//             direction = "down";
-//             break;
-//         case "ArrowLeft":
-//             direction = "left";
-//             break;
-//         case "ArrowRight":
-//             direction = "right";
-//             break;
-//     }
-// });
+console.log(snakePosition)
+
+const determineDirection = (position) => {
+    return position.y.down - position.y.up === 1 ?  'hor' : 'ver' }
+
+console.log(determineDirection(snakePosition))
+const continousMovement = () => {
+setInterval(() => {
+let snakeDir = determineDirection(snakePosition) 
+if (snakeDir === 'hor' && snakePosition.x.right < 21){
+    snakePosition.x.left++
+    snakePosition.x.right++
+   snakeElement.style.gridColumn =`${snakePosition.x.left} / ${snakePosition.x.right}`
+} else {
+    snakePosition.y.up++
+    snakePosition.y.down++
+}
+},
+1000)
+}
+
+continousMovement();
