@@ -39,15 +39,18 @@ console.log(determineDirection(snakePosition))
 const continousMovement = () => {
 setInterval(() => {
 let snakeDir = determineDirection(snakePosition) 
-if (snakeDir === 'hor' && snakePosition.x.right < 21){
+if (snakeDir === 'hor' && snakePosition.x.right <= 21){
     snakePosition.x.left++
     snakePosition.x.right++
    snakeElement.style.gridColumn =`${snakePosition.x.left} / ${snakePosition.x.right}`
-} else {
-    snakePosition.y.up++
-    snakePosition.y.down++
-}
-},
+} 
+
+if (snakeDir === 'hor' && snakePosition.x.right > 21 ) {
+    snakePosition.x.left = 1
+    snakePosition.x.right = 3
+    snakeElement.style.gridColumn =`${snakePosition.x.left} / ${snakePosition.x.right}`
+   
+}},
 1000)
 }
 

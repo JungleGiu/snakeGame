@@ -29,6 +29,9 @@ main {
   grid-row: 10 / 11;
   background-color: #ffffff;
 }
+.phantom {
+  background-color: #ffffff;
+}
 #food {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
